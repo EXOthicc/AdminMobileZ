@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>nangkring-bang ADMIN</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="css/vendor/font-awesome.min.css">
+	<link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css?rnd=132">
+	<link rel="stylesheet" href="dashboard.css?rnd=132">
+</head>
+
+<body>
+	<div id="login">
+		<!-- 
+			<script>window.location = "./index.html";</script>
+		-->
+		<button id="btnLogin" type="button" class="button buttonBlue">Log in</button>
+		  <button id="btnSignup" type="button" class="button buttonBlue">Sign up</button>
+		<div id="divLoginError" class="group">
+			<div id="lblLoginErrorMessage" class="errorlabel">Error message</div>
+		  </div>
+	  </div>
+
+
+
+	<div id="app" class="container-fluid">
+
+		<nav class="sidebar">
+			<header>
+				<div class="image-text">
+					<span class="image">
+						<!--<img src="logo.png" alt="">-->
+					</span>
+	
+					<div class="text logo-text">
+						<span class="name">nangkring-bang</span>
+						<span class="profession">ADMIN</span>
+					</div>
+				</div>
+			</header>
+	
+			<div class="menu-bar">
+				<div class="menu">
+	
+					<ul class="menu-links">
+						<li class="nav-link">
+							<a href="./dashboard.html">
+								<span class="text nav-text" style="margin-left:30px ;">Dashboard</span>
+							</a>
+						</li>
+	
+						<li class="nav-link">
+							<a href="./kategori.html">
+								<span class="text nav-text" style="margin-left:30px ;">Kategori</span>
+							</a>
+						</li>
+	
+						<li class="nav-link">
+							<a href="./menu.html">
+								<span class="text nav-text" style="margin-left:30px ;">Menu</span>
+							</a>
+						</li>
+	
+						<li class="nav-link">
+							<a href="./tempat.html">
+								<span class="text nav-text" style="margin-left:30px ;">Tempat</span>
+							</a>
+						</li>
+	
+						<li class="nav-link">
+							<a href="./user.html">
+								<span class="text nav-text" style="margin-left:30px ;">User</span>
+							</a>
+						</li>	
+					</ul>
+				</div>
+	
+				<div class="bottom-content">
+					<button class="btnLogout" id="btnLogout" type="button">Log out</button>
+				</div>
+			</div>
+	
+		</nav>
+
+		<script>
+			const body = document.querySelector('body'),
+		  sidebar = body.querySelector('nav'),
+		  toggle = body.querySelector(".toggle"),
+		  searchBtn = body.querySelector(".search-box"),
+		  modeSwitch = body.querySelector(".toggle-switch"),
+		  modeText = body.querySelector(".mode-text");
+	
+		</script>
+		<div style="margin-left: 250px;">
+			<div class="group" style="margin: 30px 0px">
+				<div id="lblAuthState" class="authlabel"></div>
+			</div>
+			<div class="col-sm-3" onclick="location.href='./kategori.html';" style="cursor: pointer;">
+				<div class="table-wrapper" style="width: 300px;">
+					<div class="table-ttitle">
+						<div class="row">
+							<div class="col-sm-8">
+								<h2>Kategori</h2>
+							</div>
+							<div class="col-sm-2">
+								 <h2 class="kategoriCount">0</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-7" onclick="location.href='./menu.html';" style="cursor: pointer;">
+				<div class="table-wrapper" style="width: 300px;">
+					<div class="table-ttitle">
+						<div class="row">
+							<div class="col-sm-8">
+								<h2>Menu</h2>
+							</div>
+							<div class="col-sm-2">
+								 <h2 class="menuCount">0</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-3" onclick="location.href='./tempat.html';" style="cursor: pointer;">
+				<div class="table-wrapper" style="width: 300px;">
+					<div class="table-ttitle">
+						<div class="row">
+							<div class="col-sm-8">
+								<h2>Tempat</h2>
+							</div>
+							<div class="col-sm-2">
+								 <h2 class="tempatCount">0</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-7" onclick="location.href='./user.html';" style="cursor: pointer;">
+				<div class="table-wrapper" style="width: 300px;">
+					<div class="table-ttitle">
+						<div class="row">
+							<div class="col-sm-8">
+								<h2>User</h2>
+							</div>
+							<div class="col-sm-2">
+								 <h2 class="userCount">0</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+			
+		
+		
+		
+	<!-- Add Modal HTML -->
+	<div id="addEmployeeModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="add-employee-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Add Employee</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Name</label>
+							<input type="text" id="employee-name" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							<input type="email" id="employee-email" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Address</label>
+							<textarea id="employee-address" class="form-control" required></textarea>
+						</div>
+						<div class="form-group">
+							<label>Phone</label>
+							<input type="text" id="employee-phone" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-success" value="Add">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Add Kategori HTML -->
+	<div id="addKategoriModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="add-kategori-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Tambah Kategori</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>kategori_name</label>
+							<input type="text" id="kategori_name" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>kategori_img</label>
+							<input type="text" id="kategori_img" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-success" value="Add">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Add Menu HTML -->
+	<div id="addMenuModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="add-menu-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Tambah Menu</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>menu_nama</label>
+							<input type="text" id="menu_nama" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_desk</label>
+							<input type="text" id="menu_desk" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_harga</label>
+							<input type="text" id="menu_harga" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_img</label>
+							<input type="text" id="menu_img" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_kategori</label>
+							<input type="text" id="menu_kategori" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_owner</label>
+							<input type="text" id="menu_owner" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_stok</label>
+							<input type="text" id="menu_stok" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-success" value="Add">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Add Tempat HTML -->
+	<div id="addTempatModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="add-tempat-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Tambah Tempat</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>tempat_nama</label>
+							<input type="text" id="tempat_nama" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_buka</label>
+							<input type="text" id="tempat_buka" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_email</label>
+							<input type="text" id="tempat_email" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_img</label>
+							<input type="text" id="tempat_img" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_lokasi</label>
+							<input type="text" id="tempat_lokasi" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_owner</label>
+							<input type="text" id="tempat_owner" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_status</label>
+							<input type="text" id="tempat_status" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_telp</label>
+							<input type="text" id="tempat_telp" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_tutup</label>
+							<input type="text" id="tempat_tutup" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-success" value="Add">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Add User HTML -->
+	<div id="addUserModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="add-user-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Tambah User</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>user_nama</label>
+							<input type="text" id="user_nama" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_alamat</label>
+							<input type="text" id="user_alamat" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_email</label>
+							<input type="text" id="user_email" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_img</label>
+							<input type="text" id="user_img" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_password</label>
+							<input type="text" id="user_password" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_telp</label>
+							<input type="text" id="user_telp" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_type</label>
+							<input type="text" id="user_type" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_username</label>
+							<input type="text" id="user_username" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-success" value="Add">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Edit Modal HTML -->
+	<div id="editEmployeeModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="edit-employee-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Edit Employee</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Name</label>
+							<input type="text" id="employee-name" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							<input type="email" id="employee-email" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>Address</label>
+							<textarea id="employee-address" class="form-control" required></textarea>
+						</div>
+						<div class="form-group">
+							<label>Phone</label>
+							<input type="text" id="employee-phone" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-info" value="Save">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Edit Kategori HTML -->
+	<div id="editKategoriModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="edit-kategori-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Edit Kategori</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>kategori_name</label>
+							<input type="text" id="kategori_name" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>kategori_img</label>
+							<input type="text" id="kategori_img" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-info" value="Save">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Edit Menu HTML -->
+	<div id="editMenuModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="edit-menu-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Edit Menu</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>menu_nama</label>
+							<input type="text" id="menu_nama" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_desk</label>
+							<input type="text" id="menu_desk" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_harga</label>
+							<input type="text" id="menu_harga" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_img</label>
+							<input type="text" id="menu_img" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_kategori</label>
+							<input type="text" id="menu_kategori" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_owner</label>
+							<input type="text" id="menu_owner" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_stok</label>
+							<input type="text" id="menu_stok" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-info" value="Save">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Edit Tempat HTML -->
+	<div id="editTempatModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="edit-tempat-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Edit Tempat</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>tempat_nama</label>
+							<input type="text" id="tempat_nama" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_buka</label>
+							<input type="text" id="tempat_buka" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_email</label>
+							<input type="text" id="tempat_email" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_img</label>
+							<input type="text" id="tempat_img" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_lokasi</label>
+							<input type="text" id="tempat_lokasi" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_owner</label>
+							<input type="text" id="tempat_owner" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_status</label>
+							<input type="text" id="tempat_status" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_telp</label>
+							<input type="text" id="tempat_telp" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>tempat_tutup</label>
+							<input type="text" id="tempat_tutup" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-info" value="Save">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Edit User HTML -->
+	<div id="editUserModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="edit-user-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Edit User</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>user_nama</label>
+							<input type="text" id="user_nama" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_alamat</label>
+							<input type="text" id="user_alamat" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_email</label>
+							<input type="text" id="user_email" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_img</label>
+							<input type="text" id="user_img" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_password</label>
+							<input type="text" id="user_password" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_telp</label>
+							<input type="text" id="user_telp" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_type</label>
+							<input type="text" id="user_type" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>user_username</label>
+							<input type="text" id="user_username" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-info" value="Save">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Modal HTML -->
+	<div id="deleteEmployeeModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="delete-employee-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Delete Employee</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete ?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Kategori HTML -->
+	<div id="deleteKategoriModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="delete-kategori-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Delete Kategori</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete ?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Menu HTML -->
+	<div id="deleteMenuModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="delete-menu-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Delete Menu</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete ?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Tempat HTML -->
+	<div id="deleteTempatModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="delete-tempat-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Delete Tempat</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete ?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Delete User HTML -->
+	<div id="deleteUserModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="delete-user-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Delete User</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete ?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="js/vendor/jquery.min.js"></script>
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-firestore.js"></script>
+	<script>
+		var firebaseConfig = {
+			apiKey: "AIzaSyAjMWj2li6n0ZM6SXfH1lXzSLq7sesO2ik",
+			authDomain: "nangkring-bang.firebaseapp.com",
+			projectId: "nangkring-bang",
+			storageBucket: "nangkring-bang.appspot.com",
+			messagingSenderId: "724512205413",
+			appId: "1:724512205413:web:15d6d1e08675bcc3bdf48c",
+			measurementId: "G-4FY8RW11ER"
+		};
+		firebase.initializeApp(firebaseConfig);
+		const db = firebase.firestore();
+	</script>
+	<script src="js/script.js?rnd=132" type="module"></script>
+	<script src="login.js?rnd=132" type="module"></script>
+</body>
+ 
+</html>

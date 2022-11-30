@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>nangkring-bang ADMIN</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="css/vendor/font-awesome.min.css">
+	<link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css?rnd=132">
+	<link rel="stylesheet" href="dashboard.css?rnd=132">
+</head>
+
+<body>
+	<div id="login">
+		<!-- 
+			<script>window.location = "./index.html";</script>
+		-->
+		<button id="btnLogin" type="button" class="button buttonBlue">Log in</button>
+		  <button id="btnSignup" type="button" class="button buttonBlue">Sign up</button>
+		<div id="divLoginError" class="group">
+			<div id="lblLoginErrorMessage" class="errorlabel">Error message</div>
+		  </div>
+	  </div>
+
+
+
+	<div id="app" class="container-fluid">
+
+		<nav class="sidebar">
+			<header>
+				<div class="image-text">
+					<span class="image">
+						<!--<img src="logo.png" alt="">-->
+					</span>
+	
+					<div class="text logo-text">
+						<span class="name">nangkring-bang</span>
+						<span class="profession">ADMIN</span>
+					</div>
+				</div>
+			</header>
+	
+			<div class="menu-bar">
+				<div class="menu">
+	
+					<ul class="menu-links">
+						<li class="nav-link">
+							<a href="./dashboard.html">
+								<span class="text nav-text" style="margin-left:30px ;">Dashboard</span>
+							</a>
+						</li>
+	
+						<li class="nav-link">
+							<a href="./kategori.html">
+								<span class="text nav-text" style="margin-left:30px ;">Kategori</span>
+							</a>
+						</li>
+	
+						<li class="nav-link">
+							<a href="./menu.html">
+								<span class="text nav-text" style="margin-left:30px ;">Menu</span>
+							</a>
+						</li>
+	
+						<li class="nav-link">
+							<a href="./tempat.html">
+								<span class="text nav-text" style="margin-left:30px ;">Tempat</span>
+							</a>
+						</li>
+	
+						<li class="nav-link">
+							<a href="./user.html">
+								<span class="text nav-text" style="margin-left:30px ;">User</span>
+							</a>
+						</li>	
+					</ul>
+				</div>
+	
+				<div class="bottom-content">
+					<button class="btnLogout" id="btnLogout" type="button">Log out</button>
+				</div>
+			</div>
+	
+		</nav>
+
+		<script>
+			const body = document.querySelector('body'),
+		  sidebar = body.querySelector('nav'),
+		  toggle = body.querySelector(".toggle"),
+		  searchBtn = body.querySelector(".search-box"),
+		  modeSwitch = body.querySelector(".toggle-switch"),
+		  modeText = body.querySelector(".mode-text");
+	
+		</script>
+
+		<div class="group" style="margin: 30px 0px 30px 250px;">
+			<div id="lblAuthState" class="authlabel"></div>
+		</div>
+        <div style="margin-left: 250px;">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2>Menu</h2>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="#addMenuModal" class="btn btn-success" data-toggle="modal"><i
+                                    class="material-icons">&#xE147;</i> <span>Menu Baru</span></a>
+                            <a href="#deleteMenuModal" class="btn btn-danger" data-toggle="modal"><i
+                                    class="material-icons">&#xE15C;</i> <span>Hapus Menu</span></a>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="table-responsive">
+                    <table id="menu-table" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <span class="custom-checkbox">
+                                        <input type="checkbox" id="selectAll">
+                                        <label for="selectAll"></label>
+                                    </span>
+                                </th>
+                                <th>menu_nama</th>
+                                <th>menu_desk</th>
+                                <th>menu_harga</th>
+                                <th>menu_img_1</th>
+                                <th>menu_img_2</th>
+                                <th>menu_kategori</th>
+                                <th>menu_owner</th>
+                                <th>menu_stok</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clearfix">
+                    <div class="hint-text">Total of <b class="menuCount">0</b> entries</div>
+                    <!-- <ul class="pagination">
+                        <li class="page-item"><a href="#" id="js-previous" class="page-link">Previous</a></li>
+                        <li class="page-item"><a href="#" id="js-next" class="page-link">Next</a></li>
+                    </ul> -->
+                </div>
+    
+                <!-- <div class="readmore">
+                    <button type="button" class="btn btn-primary js-loadmore">Load more</button>
+                </div> -->
+            </div>
+        </div>
+		
+	<!-- Add Menu HTML -->
+	<div id="addMenuModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="add-menu-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Tambah Menu</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>menu_nama</label>
+							<input type="text" id="menu_nama" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_desk</label>
+							<input type="text" id="menu_desk" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_harga</label>
+							<input type="number" id="menu_harga" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_img_1</label>
+							<input type="file" id="menu_img_1" class="form-control" onchange="getfile(event)" required>
+						</div>
+						<div class="form-group">
+							<label>menu_img_2</label>
+							<input type="file" id="menu_img_2" class="form-control" onchange="getfile_2(event)" required>
+						</div>
+						<div class="form-group">
+							<label>menu_kategori</label>
+							<input type="text" id="menu_kategori" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_owner</label>
+							<input type="text" id="menu_owner" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_stok</label>
+							<input type="text" id="menu_stok" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-success" value="Add">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Edit Menu HTML -->
+	<div id="editMenuModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="edit-menu-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Edit Menu</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>menu_nama</label>
+							<input type="text" id="menu_nama" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_desk</label>
+							<input type="text" id="menu_desk" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_harga</label>
+							<input type="number" id="menu_harga" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_img_1</label>
+							<input type="file" id="menu_img_1" class="form-control" onchange="getfile(event)" required>
+						</div>
+						<div class="form-group">
+							<label>menu_img_2</label>
+							<input type="file" id="menu_img_2" class="form-control" onchange="getfile_2(event)" required>
+						</div>
+						<div class="form-group">
+							<label>menu_kategori</label>
+							<input type="text" id="menu_kategori" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_owner</label>
+							<input type="text" id="menu_owner" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label>menu_stok</label>
+							<input type="text" id="menu_stok" class="form-control" required>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-info" value="Save">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Delete Menu HTML -->
+	<div id="deleteMenuModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="delete-menu-form">
+					<div class="modal-header">
+						<h4 class="modal-title">Delete Menu</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete ?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="js/vendor/jquery.min.js"></script>
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-storage.js"></script>
+	<script>
+		var firebaseConfig = {
+			apiKey: "AIzaSyAjMWj2li6n0ZM6SXfH1lXzSLq7sesO2ik",
+			authDomain: "nangkring-bang.firebaseapp.com",
+			projectId: "nangkring-bang",
+			storageBucket: "nangkring-bang.appspot.com",
+			messagingSenderId: "724512205413",
+			appId: "1:724512205413:web:15d6d1e08675bcc3bdf48c",
+			measurementId: "G-4FY8RW11ER"
+		};
+		firebase.initializeApp(firebaseConfig);
+		const db = firebase.firestore();
+	</script>
+	<script src="js/script.js?rnd=132" type="module"></script>
+	<script src="login.js?rnd=132" type="module"></script>
+</body>
+ 
+</html>
