@@ -1,11 +1,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js';
 import { 
   getAuth,
-  onAuthStateChanged, 
-  signOut,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  connectAuthEmulator,
+  onAuthStateChanged
 } from 'https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js';
 
 const firebaseApp = initializeApp({
@@ -60,6 +56,7 @@ var currUser;
 var count = 0;
 var fileitem;
 var filename;
+
 function getfile(e)
 {
 	fileitem = e.target.files[0];
@@ -247,7 +244,7 @@ const displayEmployees = async (doc) => {
 	})
 
 	// UPDATE LATEST DOC
-	latestDoc = data.docs[data.docs.length - 1];
+	//latestDoc = data.docs[data.docs.length - 1];
 
 	// UNATTACH EVENT LISTENERS IF NO MORE DOCS
 	if (data.empty) {
@@ -311,7 +308,7 @@ const displayKategori = async (doc) => {
 	})
 
 	// UPDATE LATEST DOC
-	latestDoc = data.docs[data.docs.length - 1];
+	//latestDoc = data.docs[data.docs.length - 1];
 
 	// UNATTACH EVENT LISTENERS IF NO MORE DOCS
 	if (data.empty) {
@@ -380,7 +377,7 @@ const displayMenu = async (doc) => {
 	})
 
 	// UPDATE LATEST DOC
-	latestDoc = data.docs[data.docs.length - 1];
+	//latestDoc = data.docs[data.docs.length - 1];
 
 	// UNATTACH EVENT LISTENERS IF NO MORE DOCS
 	if (data.empty) {
@@ -452,7 +449,7 @@ const displayTempat = async (doc) => {
 	})
 
 	// UPDATE LATEST DOC
-	latestDoc = data.docs[data.docs.length - 1];
+	//latestDoc = data.docs[data.docs.length - 1];
 
 	// UNATTACH EVENT LISTENERS IF NO MORE DOCS
 	if (data.empty) {
@@ -538,7 +535,7 @@ const displayUser = async (doc) => {
 	})
 
 	// UPDATE LATEST DOC
-	latestDoc = data.docs[data.docs.length - 1];
+	//latestDoc = data.docs[data.docs.length - 1];
 
 	// UNATTACH EVENT LISTENERS IF NO MORE DOCS
 	if (data.empty) {
@@ -615,7 +612,7 @@ const displayPesanan = async (doc) => {
 	})
 
 	// UPDATE LATEST DOC
-	latestDoc = data.docs[data.docs.length - 1];
+	//latestDoc = data.docs[data.docs.length - 1];
 
 	// UNATTACH EVENT LISTENERS IF NO MORE DOCS
 	if (data.empty) {
@@ -627,14 +624,16 @@ const displayPesanan = async (doc) => {
 
 $(document).ready(function () {
 
-	let latestDoc = null;
+	//let latestDoc = null;
 
 	// LOAD INITIAL DATA
+	
 	displayEmployees();
 	displayKategori();
 	displayMenu();
 	displayTempat();
 	displayUser();
+	
 
 	// LOAD MORE
 	$(document).on('click', '.js-loadmore', function () {
