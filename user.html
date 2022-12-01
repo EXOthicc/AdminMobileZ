@@ -123,8 +123,8 @@
                                 <th>user_type</th>
                                 <th>user_username</th>
                                 <th>user_register</th>
-                                <th>Favorit</th>
                                 <th>Pesanan</th>
+                                <th>Edit</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -288,6 +288,24 @@
 			</div>
 		</div>
 	</div>
+
+	<!--POPUP PILIH DRIVER-->
+	<div id="pilihDriverModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog" style="width: 1200px; max-width: 1200px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Pilih Driver</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div>
+					<select class="kurirX" id="Xpesanan_kurir">
+						<option value="none" selected disabled hidden>---</option>
+					</select>
+				</div>
+				<div id="XSubBtn"></div>
+			</div>
+		</div>
+	</div>
 	<script src="js/vendor/jquery.min.js"></script>
 	<script src="js/vendor/bootstrap.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
@@ -306,7 +324,9 @@
 		firebase.initializeApp(firebaseConfig);
 		const db = firebase.firestore();
 	</script>
-	<script src="js/script.js?rnd=132" type="module"></script>
+	<script src="js/script.js?rnd=132"></script>
+	<script src="js/pesanan.js?rnd=132"></script>
+	<script src="js/user.js?rnd=132" type="module"></script> 
 	<script src="login.js?rnd=132" type="module"></script>
 </body>
  
