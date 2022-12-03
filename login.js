@@ -16,7 +16,6 @@ import {
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  connectAuthEmulator,
 } from 'https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js';
 
 const firebaseApp = initializeApp({
@@ -64,6 +63,27 @@ const createAccount = async () => {
 
   try {
     await createUserWithEmailAndPassword(auth, email, password)
+    .then((user) =>{
+      console.log('User ', user.user.email);
+      db.collection('users').add({
+        user_type: 'admin',
+        user_email: user.user.email,
+        user_register: firebase.firestore.FieldValue.serverTimestamp(),
+        user_alamat: '',
+        user_img: '',
+        user_nama: user.user.email,
+        user_telp:'',
+        user_username: user.user.email
+      }).then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        window.location.href = "./dashboard.html"; 
+      })
+      .catch(function (error) {
+        console.error("Error writing document: ", error);
+      });
+    })
+    
+    
     onAuthStateChanged(auth, user => {
       if (user) {
         console.log("NEWid", user.uid);
@@ -71,6 +91,8 @@ const createAccount = async () => {
         //[]isi collection users dengan UID dan email ini
       }
     })
+    
+
   }
   catch(error) {
     console.log(`There was an error: ${error}`)
@@ -79,6 +101,7 @@ const createAccount = async () => {
 }
 
 // Monitor auth state
+/*
 const monitorAuthState = async () => {
   onAuthStateChanged(auth, user => {
     if (user) {
@@ -102,6 +125,7 @@ const monitorAuthState = async () => {
     }
   })
 }
+*/
 
 // Log out
 const logout = async () => {
@@ -136,4 +160,29 @@ const authGuard = async() => {
 }
 */
 
-monitorAuthState();
+//monitorAuthState();
+console.log(firebase.firestore.Timestamp.fromDate(new Date()));
+
+$(document).ready(function () {
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      console.log(user)
+      showApp()
+      showLoginState(user)
+
+      hideLoginError()
+      //hideLinkError()
+
+      if (window.location.href.indexOf("index.html") > -1){                 //kalo page login
+        window.location.href = "./dashboard.html";                              //ke page dashboard
+      }
+    }
+    else {
+      showLoginForm()
+      lblAuthState.innerHTML = `You're not logged in.`
+      if ((window.location.href.indexOf("index.html") > -1) == false) {     //kalo bukan page login
+        window.location.href = "./index.html";                              //ke page login
+      }  
+    }
+  })
+});
