@@ -1,3 +1,20 @@
+function resolveAfterSeconds() {
+	return new Promise(resolve => {
+	  setTimeout(() => {
+		resolve('resolved');
+	  }, 1500);
+	});
+  }
+  
+  async function asyncCall() {
+	console.log('calling');
+	const result = await resolveAfterSeconds();
+	console.log(result);
+	// expected output: "resolved"
+  }
+  
+  asyncCall();
+
 //employee=template
 //kategori, menu, tempat, 
 let employeeRef = db.collection('employees');
@@ -77,43 +94,7 @@ tempatRef.onSnapshot(snapshot => {
 	});
 });
 
-// GET TOTAL SIZE
-employeeRef.onSnapshot(snapshot => {
-	let size = snapshot.size;
-	$('.employeeCount').text(size);
-	if (size == 0) {
-		$('#selectAll').attr('disabled', true);
-	} else {
-		$('#selectAll').attr('disabled', false);
-	}
-});
-kategoriRef.onSnapshot(snapshot => {
-	let size = snapshot.size;
-	$('.kategoriCount').text(size);
-	if (size == 0) {
-		$('#selectAll').attr('disabled', true);
-	} else {
-		$('#selectAll').attr('disabled', false);
-	}
-});
-menuRef.onSnapshot(snapshot => {
-	let size = snapshot.size;
-	$('.menuCount').text(size);
-	if (size == 0) {
-		$('#selectAll').attr('disabled', true);
-	} else {
-		$('#selectAll').attr('disabled', false);
-	}
-});
-tempatRef.onSnapshot(snapshot => {
-	let size = snapshot.size;
-	$('.tempatCount').text(size);
-	if (size == 0) {
-		$('#selectAll').attr('disabled', true);
-	} else {
-		$('#selectAll').attr('disabled', false);
-	}
-});
+
 
 
 const displayEmployees = async (doc) => {
@@ -248,6 +229,10 @@ const displayKategori = async (doc) => {
 const displayMenu = async (doc) => {
 	console.log('displayMenu');
 
+	const result = await resolveAfterSeconds();
+
+	console.log("id owner", window._user);
+
 	let menu = menuRef;
 	// .startAfter(doc || 0).limit(10000)
 
@@ -255,7 +240,9 @@ const displayMenu = async (doc) => {
 
 	data.docs.forEach(doc => {
 		const menu = doc.data();
-		let item =
+		console.log("id menu", doc.id);
+		if(menu.menu_owner == window._user){
+			let item =
 			`<tr data-id="${doc.id}">
 					<td>
 							<span class="custom-checkbox">
@@ -269,7 +256,6 @@ const displayMenu = async (doc) => {
 					<td class="menu_img_1">${menu.menu_img[0]}</td>
 					<td class="menu_img_2">${menu.menu_img[1]}</td>
 					<td class="menu_kategori">${menu.menu_kategori}</td>
-					<td class="menu_owner">${menu.menu_owner}</td>
 					<td class="menu_stok">${menu.menu_stok}</td>
 					<td>
 							<a href="#" id="${doc.id}" class="edit js-edit-menu"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
@@ -280,6 +266,8 @@ const displayMenu = async (doc) => {
 			</tr>`;
 
 		$('#menu-table').append(item);
+		}
+		
 
 		// ACTIVATE TOOLTIP
 		$('[data-toggle="tooltip"]').tooltip();
@@ -316,6 +304,11 @@ const displayMenu = async (doc) => {
 }
 const displayTempat = async (doc) => {
 	console.log('displayTempat');
+	//console.log("SIHemail", XUser);
+
+	const result = await resolveAfterSeconds();
+
+	console.log("id owner", window._user);
 
 	let tempat = tempatRef;
 	// .startAfter(doc || 0).limit(10000)
@@ -324,7 +317,9 @@ const displayTempat = async (doc) => {
 
 	data.docs.forEach(doc => {
 		const tempat = doc.data();
-		let item =
+		console.log("id tempat", doc.id);
+		if(tempat.tempat_email == window._user){
+			let item =
 			`<tr data-id="${doc.id}">
 					<td>
 							<span class="custom-checkbox">
@@ -334,11 +329,9 @@ const displayTempat = async (doc) => {
 					</td>
 					<td class="tempat_nama">${tempat.tempat_nama}</td>
 					<td class="tempat_buka">${tempat.tempat_buka}</td>
-					<td class="tempat_email">${tempat.tempat_email}</td>
 					<td class="tempat_img">${tempat.tempat_img[0]}</td>
 					<td class="tempat_img_2">${tempat.tempat_img[1]}</td>
 					<td class="tempat_lokasi">${tempat.tempat_lokasi}</td>
-					<td class="tempat_owner">${tempat.tempat_owner}</td>
 					<td class="tempat_status">${tempat.tempat_status}</td>
 					<td class="tempat_telp">${tempat.tempat_telp}</td>
 					<td class="tempat_tutup">${tempat.tempat_tutup}</td>
@@ -352,6 +345,8 @@ const displayTempat = async (doc) => {
 			</tr>`;
 
 		$('#tempat-table').append(item);
+		}
+		
 
 		// ACTIVATE TOOLTIP
 		$('[data-toggle="tooltip"]').tooltip();
@@ -502,7 +497,7 @@ $(document).ready(function () {
 		//let menuImg = $('#menu_img').val();
 		let menuKategori = $('#menu_kategori').val();
 		let menuNama = $('#menu_nama').val();
-		let menuOwner = $('#menu_owner').val();
+		let menuOwner = window._user;
 		let menuStok = $('#menu_stok').val();
 		let storage = firebase.storage().ref("foto makanan/"+filename);
 		let upload = storage.put(fileitem);
@@ -536,7 +531,6 @@ $(document).ready(function () {
 						<td class="menu_img_2">${filename_2}</td>
 						<td class="menu_kategori">${menuKategori}</td>
 						<td class="menu_nama">${menuNama}</td>
-						<td class="menu_owner">${menuOwner}</td>
 						<td class="menu_stok">${menuStok}</td>
 						<td>
 								<a href="#" id="${docRef.id}" class="edit js-edit-menu"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
@@ -558,10 +552,10 @@ $(document).ready(function () {
 		event.preventDefault();
 		let tempatNama = $('#tempat_nama').val();
 		let tempatBuka = $('#tempat_buka').val();
-		let tempatEmail = $('#tempat_email').val();
+		let tempatEmail = window._user;//ganti jadi email owner auto
 		//let tempatImg = $('#tempat_img').val();
 		let tempatLokasi = $('#tempat_lokasi').val();
-		let tempatOwner = $('#tempat_owner').val();
+		let tempatOwner = $('#tempat_owner').val();//ganti jadi id owner auto
 		let tempatStatus = $('#tempat_status').val();
 		let tempatTelp = $('#tempat_telp').val();
 		let tempatTutup = $('#tempat_tutup').val();
@@ -594,10 +588,8 @@ $(document).ready(function () {
 						</td>
 						<td class="tempat_nama">${tempatNama}</td>
 						<td class="tempat_buka">${tempatBuka}</td>
-						<td class="tempat_email">${tempatEmail}</td>
 						<td class="tempat_img">${filename}</td>
 						<td class="tempat_lokasi">${tempatLokasi}</td>
-						<td class="tempat_owner">${tempatOwner}</td>
 						<td class="tempat_status">${tempatStatus}</td>
 						<td class="tempat_telp">${tempatTelp}</td>
 						<td class="tempat_tutup">${tempatTutup}</td>
@@ -672,6 +664,8 @@ $(document).ready(function () {
 	$(document).on('click', '.js-edit-kategori', function (e) {
 		e.preventDefault();
 		let id = $(this).attr('id');
+		console.log("id kategori", id);
+		console.log("id owner");
 		$('#edit-kategori-form').attr('edit-id', id);
 		db.collection('kategori').doc(id).get().then(function (document) {
 			if (document.exists) {
@@ -716,6 +710,8 @@ $(document).ready(function () {
 		e.preventDefault();
 		let id = $(this).attr('id');
 		$('#edit-menu-form').attr('edit-id', id);
+		console.log("id menu", id);
+		console.log("id owner");
 		db.collection('menu').doc(id).get().then(function (document) {
 			if (document.exists) {
 				$('#edit-menu-form #menu_desk').val(document.data().menu_desk);
@@ -742,7 +738,6 @@ $(document).ready(function () {
 		//let menuImg = $('#edit-menu-form #menu_img').val();
 		let menuKategori = $('#edit-menu-form #menu_kategori').val();
 		let menuNama = $('#edit-menu-form #menu_nama').val();
-		let menuOwner = $('#edit-menu-form #menu_owner').val();
 		let menuStok = $('#edit-menu-form #menu_stok').val();
 		let storage = firebase.storage().ref("foto makanan/"+filename);
 		let upload = storage.put(fileitem);
@@ -757,7 +752,6 @@ $(document).ready(function () {
 			menu_img: [filename,filename_2],
 			menu_kategori: menuKategori,
 			menu_nama: menuNama,
-			menu_owner: menuOwner,
 			menu_stok: menuStok
 		});
 
@@ -770,7 +764,6 @@ $(document).ready(function () {
 		$('tr[data-id=' + id + '] td.menu_img_2').html(menu_img[1]);
 		$('tr[data-id=' + id + '] td.menu_kategori').html(menuKategori);
 		$('tr[data-id=' + id + '] td.menu_nama').html(menuNama);
-		$('tr[data-id=' + id + '] td.menu_owner').html(menuOwner);
 		$('tr[data-id=' + id + '] td.menu_stok').html(menuStok);
 	});
 
@@ -783,10 +776,8 @@ $(document).ready(function () {
 			if (document.exists) {
 				$('#edit-tempat-form #tempat_nama ').val(document.data().tempat_nama);
 				$('#edit-tempat-form #tempat_buka ').val(document.data().tempat_buka);
-				$('#edit-tempat-form #tempat_email ').val(document.data().tempat_email);
 				//$('#edit-tempat-form #tempat_img ').val(document.data().tempat_img);
 				$('#edit-tempat-form #tempat_lokasi ').val(document.data().tempat_lokasi);
-				$('#edit-tempat-form #tempat_owner ').val(document.data().tempat_owner);
 				$('#edit-tempat-form #tempat_status ').val(document.data().tempat_status);
 				$('#edit-tempat-form #tempat_telp ').val(document.data().tempat_telp);
 				$('#edit-tempat-form #tempat_tutup ').val(document.data().tempat_tutup);
@@ -805,10 +796,8 @@ $(document).ready(function () {
 		let id = $(this).attr('edit-id');
 		let tempatNama = $('#edit-tempat-form #tempat_nama').val();
 		let tempatBuka = $('#edit-tempat-form #tempat_buka').val();
-		let tempatEmail = $('#edit-tempat-form #tempat_email').val();
 		//let tempatImg = $('#edit-tempat-form #tempat_img').val();
 		let tempatLokasi = $('#edit-tempat-form #tempat_lokasi').val();
-		let tempatOwner = $('#edit-tempat-form #tempat_owner').val();
 		let tempatStatus = $('#edit-tempat-form #tempat_status').val();
 		let tempatTelp = $('#edit-tempat-form #tempat_telp').val();
 		let tempatTutup = $('#edit-tempat-form #tempat_tutup').val();
@@ -823,10 +812,8 @@ $(document).ready(function () {
 		db.collection('tempat').doc(id).update({
 			tempat_nama: tempatNama,
 			tempat_buka: tempatBuka,
-			tempat_email: tempatEmail,
 			tempat_img: [filename,filename_2],
 			tempat_lokasi: tempatLokasi,
-			tempat_owner: tempatOwner,
 			tempat_status: tempatStatus,
 			tempat_telp: tempatTelp,
 			tempat_tutup: tempatTutup,
@@ -838,11 +825,9 @@ $(document).ready(function () {
 		// SHOW UPDATED DATA ON BROWSER
 		$('tr[data-id=' + id + '] td.tempat_nama').html(tempatNama);
 		$('tr[data-id=' + id + '] td.tempat_buka').html(tempatBuka);
-		$('tr[data-id=' + id + '] td.tempat_email').html(tempatEmail);
 		$('tr[data-id=' + id + '] td.tempat_img').html(filename);
 		$('tr[data-id=' + id + '] td.tempat_img_2').html(filename_2);
 		$('tr[data-id=' + id + '] td.tempat_lokasi').html(tempatLokasi);
-		$('tr[data-id=' + id + '] td.tempat_owner').html(tempatOwner);
 		$('tr[data-id=' + id + '] td.tempat_status').html(tempatStatus);
 		$('tr[data-id=' + id + '] td.tempat_telp').html(tempatTelp);
 		$('tr[data-id=' + id + '] td.tempat_tutup').html(tempatTutup);

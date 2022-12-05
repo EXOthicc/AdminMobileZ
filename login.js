@@ -15,8 +15,10 @@ import {
   onAuthStateChanged, 
   signOut,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from 'https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js';
+
+var _user;
 
 const firebaseApp = initializeApp({
   apiKey: "AIzaSyAjMWj2li6n0ZM6SXfH1lXzSLq7sesO2ik",
@@ -167,6 +169,8 @@ $(document).ready(function () {
   onAuthStateChanged(auth, user => {
     if (user) {
       console.log(user)
+      window._user = auth.currentUser.email;//[]
+      console.log(auth.currentUser.email);
       showApp()
       showLoginState(user)
 

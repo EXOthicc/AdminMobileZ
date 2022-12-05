@@ -129,11 +129,9 @@
                                 </th>
                                 <th>tempat_nama</th>
                                 <th>tempat_buka</th>
-                                <th>tempat_email</th>
                                 <th>tempat_img</th>
                                 <th>tempat_img_2</th>
                                 <th>tempat_lokasi</th>
-                                <th>tempat_owner</th>
                                 <th>tempat_status</th>
                                 <th>tempat_telp</th>
                                 <th>tempat_tutup</th>
@@ -145,7 +143,6 @@
                     </table>
                 </div>
                 <div class="clearfix">
-                    <div class="hint-text">Total of <b class="tempatCount">0</b> entries</div>
                     <!-- <ul class="pagination">
                         <li class="page-item"><a href="#" id="js-previous" class="page-link">Previous</a></li>
                         <li class="page-item"><a href="#" id="js-next" class="page-link">Next</a></li>
@@ -177,10 +174,6 @@
 							<input type="number" id="tempat_buka" class="form-control" min="0" max="2400" required>
 						</div>
 						<div class="form-group">
-							<label>tempat_email</label>
-							<input type="text" id="tempat_email" class="form-control" required>
-						</div>
-						<div class="form-group">
 							<label>tempat_img</label>
 							<input type="file" id="tempat_img" class="form-control" onchange="getfile(event)" required>
 						</div>
@@ -191,10 +184,6 @@
 						<div class="form-group">
 							<label>tempat_lokasi</label>
 							<input type="text" id="tempat_lokasi" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>tempat_owner</label>
-							<input type="text" id="tempat_owner" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>tempat_status</label>
@@ -240,10 +229,6 @@
 							<input type="number" id="tempat_buka" class="form-control" min="0" max="2400" required>
 						</div>
 						<div class="form-group">
-							<label>tempat_email</label>
-							<input type="text" id="tempat_email" class="form-control" required>
-						</div>
-						<div class="form-group">
 							<label>tempat_img</label>
 							<input type="file" id="tempat_img" class="form-control" onchange="getfile(event)" required>
 						</div>
@@ -254,10 +239,6 @@
 						<div class="form-group">
 							<label>tempat_lokasi</label>
 							<input type="text" id="tempat_lokasi" class="form-control" required>
-						</div>
-						<div class="form-group">
-							<label>tempat_owner</label>
-							<input type="text" id="tempat_owner" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>tempat_status</label>
@@ -323,8 +304,8 @@
 		firebase.initializeApp(firebaseConfig);
 		const db = firebase.firestore();
 	</script>
-	<script src="js/script.js?rnd=132"></script>
 	<script src="login.js?rnd=132" type="module"></script>
+	<script src="js/script.js?rnd=132"></script>
 </body>
  
 </html>
