@@ -776,13 +776,13 @@ $(document).ready(function () {
 			if (document.exists) {
 				$('#edit-tempat-form #tempat_nama ').val(document.data().tempat_nama);
 				$('#edit-tempat-form #tempat_buka1 ').val(document.data().tempat_buka[0] + document.data().tempat_buka[1]);
-				$('#edit-tempat-form #tempat_buka2 ').val(document.data().tempat_buka[2] + document.data().tempat_buka[3]);
+				$('#edit-tempat-form #tempat_buka2 ').val(document.data().tempat_buka[3] + document.data().tempat_buka[4]);
 				//$('#edit-tempat-form #tempat_img ').val(document.data().tempat_img);
 				$('#edit-tempat-form #tempat_lokasi ').val(document.data().tempat_lokasi);
 				$('#edit-tempat-form #tempat_status ').val(document.data().tempat_status);
 				$('#edit-tempat-form #tempat_telp ').val(document.data().tempat_telp);
 				$('#edit-tempat-form #tempat_tutup1 ').val(document.data().tempat_tutup[0] + document.data().tempat_tutup[1]);
-				$('#edit-tempat-form #tempat_tutup2 ').val(document.data().tempat_tutup[2] + document.data().tempat_tutup[3]);
+				$('#edit-tempat-form #tempat_tutup2 ').val(document.data().tempat_tutup[3] + document.data().tempat_tutup[4]);
 				$('#edit-tempat-form #tempat_kategori ').val(document.data().tempat_kategori);
 				$('#editTempatModal').modal('show');
 			} else {
