@@ -551,14 +551,14 @@ $(document).ready(function () {
 	$("#add-tempat-form").submit(function (event) {
 		event.preventDefault();
 		let tempatNama = $('#tempat_nama').val();
-		let tempatBuka = $('#tempat_buka').val();
+		let tempatBuka = Number($('#tempat_buka').val());
 		let tempatEmail = window._user;//ganti jadi email owner auto
 		//let tempatImg = $('#tempat_img').val();
 		let tempatLokasi = $('#tempat_lokasi').val();
 		let tempatOwner = $('#tempat_owner').val();//ganti jadi id owner auto
 		let tempatStatus = $('#tempat_status').val();
 		let tempatTelp = $('#tempat_telp').val();
-		let tempatTutup = $('#tempat_tutup').val();
+		let tempatTutup = Number($('#tempat_tutup').val());
 		let tempatKategori = $('#tempat_kategori').val();
 		let storage = firebase.storage().ref("foto tempat/"+filename);
 		let upload = storage.put(fileitem);
@@ -795,12 +795,12 @@ $(document).ready(function () {
 		event.preventDefault();
 		let id = $(this).attr('edit-id');
 		let tempatNama = $('#edit-tempat-form #tempat_nama').val();
-		let tempatBuka = $('#edit-tempat-form #tempat_buka').val();
+		let tempatBuka = Number($('#edit-tempat-form #tempat_buka').val());
 		//let tempatImg = $('#edit-tempat-form #tempat_img').val();
 		let tempatLokasi = $('#edit-tempat-form #tempat_lokasi').val();
 		let tempatStatus = $('#edit-tempat-form #tempat_status').val();
 		let tempatTelp = $('#edit-tempat-form #tempat_telp').val();
-		let tempatTutup = $('#edit-tempat-form #tempat_tutup').val();
+		let tempatTutup = Number($('#edit-tempat-form #tempat_tutup').val());
 		let tempatKategori = $('#edit-tempat-form #tempat_kategori').val();
 		let storage = firebase.storage().ref("foto tempat/"+filename);
 		let upload = storage.put(fileitem);
