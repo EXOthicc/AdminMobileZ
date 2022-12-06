@@ -21,10 +21,27 @@ function submitDriver(idAdminX, idDriverX){
     console.log('idDriver', idKurir);
 
     //flag last disini
-    //update db
+    //update db pesanan
     db.collection('users').doc(idAdmin).collection('pesanan').doc(idIsian).update({
         pesanan_driver: idKurir
     });
+    //get db pesanan
+    db.collection('users').doc(idAdmin).collection('pesanan').doc(idIsian).get().then(function (document){
+    //XXX
+        //add db driver
+        db.collection('users').doc(idKurir).collection('pesanan').add({
+            pesanan_driver: idKurir,
+            pesanan_alamat: document.data().pesanan_alamat,
+            pesanan_bukti: document.data().pesanan_bukti,
+            pesanan_catatan: document.data().pesanan_catatan,
+            pesanan_metode: document.data().pesanan_metode,
+            pesanan_status: document.data().pesanan_status,
+            pesanan_sub: document.data().pesanan_sub,
+            pesanan_tgl_order: document.data().pesanan_tgl_order,
+            pesanan_tgl_bayar: document.data().pesanan_tgl_bayar,
+    });
+    })
+    
 }
 
 function XXX(t){

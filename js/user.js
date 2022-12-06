@@ -205,6 +205,7 @@ const displayPesanan = async (doc) => {
 		let item =  //{}X1 di input id
 		`<tr id="isian" data-id="${doc.id}">
         <form>
+			<td class="pesanan_alamat">${pesanan.pesanan_alamat}</td>
 			<td class="pesanan_bukti">${pesanan.pesanan_bukti}</td>
 			<td class="pesanan_catatan">${pesanan.pesanan_catatan}</td>
 			<td class="pesanan_metode">${pesanan.pesanan_metode}</td>
