@@ -15,6 +15,52 @@ function resolveAfterSeconds() {
   
   asyncCall();
 
+  //X
+
+  var isiKT = false;
+
+  const isiKategoriTempat = async (doc) => {
+	console.log("ISI KATEGORI TEMPAT");
+	//$('#ngisi').slice(0).remove();//!!
+	const isi = await db.collection('kategori').get();
+	console.log("ISI KAT", isi.docs);
+	isi.docs.forEach(async is =>{
+		const tmm = is.data();
+		console.log("tmm", tmm);
+		if(tmm.kategori_type == 'tempat'){
+			console.log(is.id);
+			let isian = `
+			<option id="ngisi" value="${is.id}">${tmm.kategori_name}</option>
+			`
+			console.log(isian);//disini ada, rtapi kalo dikluarin dari } bawah ngga muncul
+			$('#tempat_kategoriA').append(isian);
+			$('#tempat_kategoriE').append(isian);
+		}
+	})
+  }
+
+  const isiKategoriMenu = async (doc) => {
+	console.log("ISI KATEGORI MENU");
+	//$('#ngisi').slice(0).remove();//!!
+	const isi = await db.collection('kategori').get();
+	console.log("ISI KAT", isi.docs);
+	isi.docs.forEach(async is =>{
+		const tmm = is.data();
+		console.log("tmmC", tmm);
+		if(tmm.kategori_type == 'menu'){
+			console.log(is.id);
+			let isian = `
+			<option id="ngisi" value="${is.id}">${tmm.kategori_name}</option>
+			`
+			console.log(isian);//disini ada, rtapi kalo dikluarin dari } bawah ngga muncul
+			$('#menu_kategoriA').append(isian);
+			$('#menu_kategoriE').append(isian);
+		}
+	})
+  }
+
+  //X
+
 //employee=template
 //kategori, menu, tempat, 
 let employeeRef = db.collection('employees');
@@ -495,7 +541,7 @@ $(document).ready(function () {
 		let menuDesk = $('#menu_desk').val();
 		let menuHarga = Number($('#menu_harga').val());
 		//let menuImg = $('#menu_img').val();
-		let menuKategori = $('#menu_kategori').val();
+		let menuKategori = $('#menu_kategoriA').val();
 		let menuNama = $('#menu_nama').val();
 		let menuOwner = window._user;
 		let menuStok = $('#menu_stok').val();
@@ -556,10 +602,10 @@ $(document).ready(function () {
 		//let tempatImg = $('#tempat_img').val();
 		let tempatLokasi = $('#tempat_lokasi').val();
 		let tempatOwner = $('#tempat_owner').val();//ganti jadi id owner auto
-		let tempatStatus = $('#tempat_status').val();
+		let tempatStatus = $('#tempat_status').val();A
 		let tempatTelp = $('#tempat_telp').val();
 		let tempatTutup = Number($('#edit-tempat-form #tempat_tutup1').val()) + ':' + Number($('#edit-tempat-form #tempat_tutup2').val());
-		let tempatKategori = $('#tempat_kategori').val();
+		let tempatKategori = $('#tempat_kategoriA').val();
 		let storage = firebase.storage().ref("foto tempat/"+filename);
 		let upload = storage.put(fileitem);
 		upload.on("state_changed");
@@ -717,7 +763,7 @@ $(document).ready(function () {
 				$('#edit-menu-form #menu_desk').val(document.data().menu_desk);
 				$('#edit-menu-form #menu_harga').val(document.data().menu_harga);
 				//$('#edit-menu-form #menu_img').val(document.data().menu_img);
-				$('#edit-menu-form #menu_kategori').val(document.data().menu_kategori);
+				$('#edit-menu-form #menu_kategoriE').val(document.data().menu_kategori);
 				$('#edit-menu-form #menu_nama').val(document.data().menu_nama);
 				$('#edit-menu-form #menu_owner').val(document.data().menu_owner);
 				$('#edit-menu-form #menu_stok').val(document.data().menu_stok);
@@ -736,7 +782,7 @@ $(document).ready(function () {
 		let menuDesk = $('#edit-menu-form #menu_desk').val();
 		let menuHarga = Number($('#edit-menu-form #menu_harga').val());
 		//let menuImg = $('#edit-menu-form #menu_img').val();
-		let menuKategori = $('#edit-menu-form #menu_kategori').val();
+		let menuKategori = $('#edit-menu-form #menu_kategoriE').val();
 		let menuNama = $('#edit-menu-form #menu_nama').val();
 		let menuStok = $('#edit-menu-form #menu_stok').val();
 		let storage = firebase.storage().ref("foto makanan/"+filename);
@@ -783,7 +829,7 @@ $(document).ready(function () {
 				$('#edit-tempat-form #tempat_telp ').val(document.data().tempat_telp);
 				$('#edit-tempat-form #tempat_tutup1 ').val(document.data().tempat_tutup[0] + document.data().tempat_tutup[1]);
 				$('#edit-tempat-form #tempat_tutup2 ').val(document.data().tempat_tutup[3] + document.data().tempat_tutup[4]);
-				$('#edit-tempat-form #tempat_kategori ').val(document.data().tempat_kategori);
+				$('#edit-tempat-form #tempat_kategoriE ').val(document.data().tempat_kategori);
 				$('#editTempatModal').modal('show');
 			} else {
 				console.log("No such document!");
@@ -803,7 +849,7 @@ $(document).ready(function () {
 		let tempatStatus = $('#edit-tempat-form #tempat_status').val();
 		let tempatTelp = $('#edit-tempat-form #tempat_telp').val();
 		let tempatTutup = Number($('#edit-tempat-form #tempat_tutup1').val()) + ':' + Number($('#edit-tempat-form #tempat_tutup2').val());
-		let tempatKategori = $('#edit-tempat-form #tempat_kategori').val();
+		let tempatKategori = $('#edit-tempat-form #tempat_kategoriE').val();
 		let storage = firebase.storage().ref("foto tempat/"+filename);
 		let upload = storage.put(fileitem);
 		upload.on("state_changed");
@@ -1032,6 +1078,48 @@ $(document).ready(function () {
 
 	$("#editTempatModal").on('hidden.bs.modal', function () {
 		$('#edit-tempat-form .form-control').val('');
+	});
+
+	////////////////
+
+	//ON ADD TEMPAT SHOWED
+	$("#addTempatModal").on('shown.bs.modal', function () {
+		console.log("ADRTAM");
+		//
+		if(isiKT == false){
+			isiKategoriTempat();
+			isiKT = true;
+		}
+	});
+
+	//ON EDIT TEMPAT SHOWED
+	$("#editTempatModal").on('shown.bs.modal', function () {
+		console.log("ETM");
+		//
+		if(isiKT == false){
+			isiKategoriTempat();
+			isiKT = true;
+		}
+	});
+
+	//ON ADD MENU SHOWED
+	$("#addMenuModal").on('shown.bs.modal', function () {
+		console.log("ADMM");
+		//
+		if(isiKT == false){
+			isiKategoriMenu();
+			isiKT = true;
+		}
+	});
+
+	//ON EDIT MENU SHOWED
+	$("#editMenuModal").on('shown.bs.modal', function () {
+		console.log("EDMN");
+		//
+		if(isiKT == false){
+			isiKategoriMenu();
+			isiKT = true;
+		}
 	});
 });
 
