@@ -493,7 +493,7 @@ $(document).ready(function () {
 	$("#add-menu-form").submit(function (event) {
 		event.preventDefault();
 		let menuDesk = $('#menu_desk').val();
-		let menuHarga = $('#menu_harga').val();
+		let menuHarga = Number($('#menu_harga').val());
 		//let menuImg = $('#menu_img').val();
 		let menuKategori = $('#menu_kategori').val();
 		let menuNama = $('#menu_nama').val();
@@ -551,14 +551,14 @@ $(document).ready(function () {
 	$("#add-tempat-form").submit(function (event) {
 		event.preventDefault();
 		let tempatNama = $('#tempat_nama').val();
-		let tempatBuka = Number($('#tempat_buka').val());
+		let tempatBuka = Number($('#edit-tempat-form #tempat_buka1').val()) + ':' + Number($('#edit-tempat-form #tempat_buka2').val());
 		let tempatEmail = window._user;//ganti jadi email owner auto
 		//let tempatImg = $('#tempat_img').val();
 		let tempatLokasi = $('#tempat_lokasi').val();
 		let tempatOwner = $('#tempat_owner').val();//ganti jadi id owner auto
 		let tempatStatus = $('#tempat_status').val();
 		let tempatTelp = $('#tempat_telp').val();
-		let tempatTutup = Number($('#tempat_tutup').val());
+		let tempatTutup = Number($('#edit-tempat-form #tempat_tutup1').val()) + ':' + Number($('#edit-tempat-form #tempat_tutup2').val());
 		let tempatKategori = $('#tempat_kategori').val();
 		let storage = firebase.storage().ref("foto tempat/"+filename);
 		let upload = storage.put(fileitem);
@@ -734,7 +734,7 @@ $(document).ready(function () {
 		event.preventDefault();
 		let id = $(this).attr('edit-id');
 		let menuDesk = $('#edit-menu-form #menu_desk').val();
-		let menuHarga = $('#edit-menu-form #menu_harga').val();
+		let menuHarga = Number($('#edit-menu-form #menu_harga').val());
 		//let menuImg = $('#edit-menu-form #menu_img').val();
 		let menuKategori = $('#edit-menu-form #menu_kategori').val();
 		let menuNama = $('#edit-menu-form #menu_nama').val();
@@ -775,12 +775,14 @@ $(document).ready(function () {
 		db.collection('tempat').doc(id).get().then(function (document) {
 			if (document.exists) {
 				$('#edit-tempat-form #tempat_nama ').val(document.data().tempat_nama);
-				$('#edit-tempat-form #tempat_buka ').val(document.data().tempat_buka);
+				$('#edit-tempat-form #tempat_buka1 ').val(document.data().tempat_buka[0] + document.data().tempat_buka[1]);
+				$('#edit-tempat-form #tempat_buka2 ').val(document.data().tempat_buka[2] + document.data().tempat_buka[3]);
 				//$('#edit-tempat-form #tempat_img ').val(document.data().tempat_img);
 				$('#edit-tempat-form #tempat_lokasi ').val(document.data().tempat_lokasi);
 				$('#edit-tempat-form #tempat_status ').val(document.data().tempat_status);
 				$('#edit-tempat-form #tempat_telp ').val(document.data().tempat_telp);
-				$('#edit-tempat-form #tempat_tutup ').val(document.data().tempat_tutup);
+				$('#edit-tempat-form #tempat_tutup1 ').val(document.data().tempat_tutup[0] + document.data().tempat_tutup[1]);
+				$('#edit-tempat-form #tempat_tutup2 ').val(document.data().tempat_tutup[2] + document.data().tempat_tutup[3]);
 				$('#edit-tempat-form #tempat_kategori ').val(document.data().tempat_kategori);
 				$('#editTempatModal').modal('show');
 			} else {
@@ -795,12 +797,12 @@ $(document).ready(function () {
 		event.preventDefault();
 		let id = $(this).attr('edit-id');
 		let tempatNama = $('#edit-tempat-form #tempat_nama').val();
-		let tempatBuka = Number($('#edit-tempat-form #tempat_buka').val());
+		let tempatBuka = Number($('#edit-tempat-form #tempat_buka1').val()) + ':' + Number($('#edit-tempat-form #tempat_buka2').val());//???adi biasa
 		//let tempatImg = $('#edit-tempat-form #tempat_img').val();
 		let tempatLokasi = $('#edit-tempat-form #tempat_lokasi').val();
 		let tempatStatus = $('#edit-tempat-form #tempat_status').val();
 		let tempatTelp = $('#edit-tempat-form #tempat_telp').val();
-		let tempatTutup = Number($('#edit-tempat-form #tempat_tutup').val());
+		let tempatTutup = Number($('#edit-tempat-form #tempat_tutup1').val()) + ':' + Number($('#edit-tempat-form #tempat_tutup2').val());
 		let tempatKategori = $('#edit-tempat-form #tempat_kategori').val();
 		let storage = firebase.storage().ref("foto tempat/"+filename);
 		let upload = storage.put(fileitem);
